@@ -1,6 +1,6 @@
 {
   "name": "litejit-css",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Um motor CSS utilitário JIT ultra-leve com sistema de espaçamento Base-3",
   "main": "index.js",
   "scripts": {
