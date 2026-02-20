@@ -2,52 +2,55 @@
 const config = require('./config');
 
 /**
- * Escapa caracteres especiais para seletores CSS válidos
+ * Escapa caracteres especiais para que o navegador aceite a classe no CSS.
  */
 const escapeSeletor = (classe) => 
-    classe.replace(/:/g, '\\:').replace(/\[/g, '\\[').replace(/\]/g, '\\]').replace(/#/g, '\\#');
+    classe.replace(/([#\[\]\(\)\.\:\/\%\,])/g, '\\$1');
 
 /**
- * Mapeia siglas de direção para nomes completos do CSS
+ * Mapeia siglas de direção (l, r, t, b) para nomes completos (left, right, etc.)
  */
 const getDirecaoCompleta = (pref) => {
-    const mapa = { 't': 'top', 'b': 'bottom', 'l': 'left', 'r': 'right' };
-    const parte = pref.split('-')[1]; // Pega o 'l' de 'border-l'
-    return mapa[parte] || parte;
+    const mapa = { 'l': 'left', 'r': 'right', 't': 'top', 'b': 'bottom' };
+    const partes = pref.split('-');
+    const sigla = partes[1]; 
+    return mapa[sigla] || sigla;
 };
 
 /**
- * Gera a regra de estilo de borda específica
- */
-const processarEstiloBorda = (prefixo) => {
-    if (prefixo === 'border') return 'border-style: solid;';
-    if (prefixo.startsWith('border-')) {
-        return `border-${getDirecaoCompleta(prefixo)}-style: solid;`;
-    }
-    return '';
-};
-
-/**
- * Resolve qual propriedade CSS usar baseada no valor (cor vs tamanho)
+ * Resolve a propriedade CSS final.
+ * Garante que 'text-20' vire 'font-size' e 'text-[#000]' vire 'color'.
  */
 const resolverPropriedade = (prefixo, eCor) => {
-    let prop = config.mapaPropriedades[prefixo];
-    
-    if (eCor) {
-        if (prefixo.startsWith('border')) {
-            const direcao = getDirecaoCompleta(prefixo);
-            return prefixo === 'border' ? 'border-color' : `border-${direcao}-color`;
-        }
-        if (prefixo === 'text') return 'color';
-    } else {
-        if (prefixo === 'text') return 'font-size';
+    if (prefixo === 'text') {
+        return eCor ? 'color' : 'font-size';
     }
-    return prop;
+    if (prefixo === 'bg') return 'background-color';
+    
+    if (prefixo.startsWith('border-')) {
+        const direcao = getDirecaoCompleta(prefixo);
+        // Se for border-l-2 -> border-left-width
+        // Se for border-l-[#000] -> border-left-color
+        return eCor ? `border-${direcao}-color` : `border-${direcao}-width`;
+    }
+    
+    return config.mapaPropriedades[prefixo] || prefixo;
+};
+
+/**
+ * Define o estilo da borda (solid)
+ */
+const processarEstiloBorda = (prefixo) => {
+    if (prefixo.startsWith('border')) {
+        const direcao = getDirecaoCompleta(prefixo);
+        return direcao ? `border-${direcao}-style: solid;` : `border-style: solid;`;
+    }
+    return '';
 };
 
 module.exports = {
     escapeSeletor,
     getDirecaoCompleta,
     processarEstiloBorda,
-    resolverPropriedade
+    resolverPropriedade // <-- Sem isso, o parser quebra silenciosamente
 };

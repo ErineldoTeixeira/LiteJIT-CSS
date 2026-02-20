@@ -14,5 +14,9 @@
     "nodejs"
   ],
   "author": "Eri",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "chokidar": "^5.0.0",
+    "glob": "^13.0.6"
+  }
 }
