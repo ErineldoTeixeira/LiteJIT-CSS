@@ -8,7 +8,12 @@ module.exports = {
         'bg': 'background-color',
         'text': 'color',
         'rounded': 'border-radius',
-        'border': 'border-width'
+        'border': 'border-width',
+        'border': 'border-width',
+        'border-l': 'border-left-width',
+        'border-r': 'border-right-width',
+        'border-t': 'border-top-width',
+        'border-b': 'border-bottom-width',
     },
     // Valores fixos de design
     cores: {
@@ -24,7 +29,8 @@ module.exports = {
         'grid': 'display: grid;',
         'items-center': 'align-items: center;',
         'justify-center': 'justify-content: center;',
-        'block': 'display: block;'
+        'block': 'display: block;',
+
     },
-    baseSpacing: 2
+    baseSpacing: 3
 };
