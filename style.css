@@ -1,0 +1,10 @@
+/* Mini Tailwind Generated */
+.border-2 { border-width: 2px; border-style: solid; }
+.border-red { border-width: #ef4444; border-style: solid; }
+.rounded-10 { border-radius: 10px;  }
+.p-4 { padding: 8px;  }
+.bg-black { background-color: #000;  }
+.text-white { color: #fff;  }
+.hover\:bg-white:hover { background-color: #fff;  }
+.hover\:text-black:hover { color: #000;  }
+.hover\:border-black:hover { border-width: #000; border-style: solid; }
