@@ -1,0 +1,24 @@
+{
+  "name": "litejit-css",
+  "version": "1.3.0",
+  "main": "litejit.js",
+  "scripts": {
+    "start": "node litejit.js",
+    "dev": "node litejit.js",
+    "build": "node litejit.js && node min.js"
+  }
+,
+  "keywords": [
+    "css",
+    "jit",
+    "utility-first",
+    "nodejs"
+  ],
+  "author": "Eri",
+  "license": "MIT",
+  "dependencies": {
+    "chokidar": "^5.0.0",
+    "clean-css": "^5.3.3",
+    "glob": "^13.0.6"
+  }
+}

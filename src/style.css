@@ -1,0 +1,9 @@
+/* LiteJIT v1.3 | Purge Ativo */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+.bg-\[\#f4f4f4\] { background-color: #f4f4f4; }
+.p-10 { padding: 40px !important; }
+.p-12 { padding: 48px !important; }
+.bg-\[\#0f0\] { background-color: #0f0; }
+.border-l-2\[\#000\] { border-left: 2px solid #000; }
+.text-201\[\#fff\] { font-size: 201px; color: #fff; }
+.hover\:text-95\[\#f00\]:hover { font-size: 95px; color: #f00; }

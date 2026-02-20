@@ -1,9 +1,41 @@
-/* LiteJIT v1.3 | Purge Ativo */
+/* LiteJIT v1.0 | Restaurado */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-.bg-\[\#f4f4f4\] { background-color: #f4f4f4; }
-.p-10 { padding: 40px !important; }
-.p-12 { padding: 48px !important; }
-.bg-\[\#0f0\] { background-color: #0f0; }
-.border-l-2\[\#000\] { border-left: 2px solid #000; }
-.text-201\[\#fff\] { font-size: 201px; color: #fff; }
-.hover\:text-95\[\#f00\]:hover { font-size: 95px; color: #f00; }
+.bg-black { background-color: #000000 !important; }
+.h-screen { height: 100vh; !important; }
+.flex { display: flex !important; }
+.items-center { align-items: center; !important; }
+.justify-center { justify-content: center; !important; }
+.m-0 { margin: 0px !important; }
+.bg-white { background-color: #ffffff !important; }
+.p-10 { padding: 30px !important; }
+.flex-col { flex-direction: column; !important; }
+.border-red { border: 1px solid #f00 !important; }
+.border-b-\[10px\] { border-bottom: 10px solid !important; }
+.border-b-black { border-bottom: 1px solid #000000 !important; }
+.relative { position: relative; !important; }
+.text-black { color: #000000 !important; }
+.text-\[42px\] { font-size: 42px !important; }
+.text-red { color: #f00 !important; }
+.text-20 { font-size: 20px !important; }
+.mt-2 { margin-top: 6px !important; }
+.grid { display: grid; !important; }
+.mt-5 { margin-top: 15px !important; }
+.pl-\[30px\] { padding-left: 30px !important; }
+.border-l-red { border-left: 1px solid #f00 !important; }
+.text-\[14px\] { font-size: 14px !important; }
+.text-\[\#00ff00\] { color: #00ff00 !important; }
+.mt-10 { margin-top: 30px !important; }
+.p-5 { padding: 15px !important; }
+.text-white { color: #ffffff !important; }
+.pointer { cursor: pointer; !important; }
+.hover\:bg-red:hover { background-color: #f00 !important; }
+.hover\:text-black:hover { color: #000000 !important; }
+.absolute { position: absolute; !important; }
+.pt-\[2px\] { padding-top: 2px !important; }
+.pb-\[2px\] { padding-bottom: 2px !important; }
+.pl-5 { padding-left: 15px !important; }
+.pr-5 { padding-right: 15px !important; }
+.bg-red { background-color: #f00 !important; }
+.text-\[12px\] { font-size: 12px !important; }
+.mt-\[300px\] { margin-top: 300px !important; }
+.bg-\[\#333\] { background-color: #333 !important; }
