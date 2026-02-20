@@ -1,40 +1,54 @@
-# ⚡ LiteJIT-CSS
+# ⚡ LiteJIT-CSS (v1.2.0)
 
-Um motor CSS **Just-In-Time (JIT)** leve e inteligente, inspirado no Tailwind CSS, construído em Node.js. O LiteJIT-CSS lê seus arquivos HTML em tempo real e gera apenas o CSS que você realmente utiliza.
+Um motor CSS **Just-In-Time (JIT)** leve, modular e inteligente, construído em Node.js. O LiteJIT-CSS observa seus arquivos HTML em tempo real e gera automaticamente apenas o CSS que você está utilizando, suportando valores arbitrários e super-classes compostas.
 
-## ✨ Diferenciais
 
-- **Diferenciação Inteligente**: O motor entende se `text-` refere-se a `color` ou `font-size` baseando-se no valor digitado.
-- **Valores Arbitrários**: Suporte total a colchetes para cores hexadecimais e unidades customizadas: `text-[#ff5500]` ou `w-[500px]`.
-- **Base de Espaçamento**: Sistema de escala para `padding` e `margin` (Multiplicador configurável).
-- **Suporte a Hover**: Gere estados de hover automaticamente adicionando o prefixo `hover:`.
+
+## ✨ Diferenciais da Versão 1.2.0
+
+- **Arquitetura Modular**: Lógica dividida entre `parse.js` e `utils.js` para maior escalabilidade e manutenção.
+- **Super-Classes (Compound)**: Defina múltiplas propriedades em uma única classe. Ex: `text-20[#f00]`.
+- **Diferenciação Inteligente**: O motor identifica se `text-` refere-se a `color` ou `font-size` baseando-se no valor.
+- **Shorthand de Bordas**: Geração automática de propriedades curtas como `border-left: 3px solid blue;`.
+- **Valores Arbitrários**: Suporte total a unidades customizadas: `w-[500px]`, `p-[10%]`, `h-[100vh]`.
 
 ---
 
-## 🚀 Como Funciona
+## 🚀 Como Funciona (Lógica de Prioridade)
 
-O LiteJIT processa as classes seguindo esta lógica de prioridade:
+O LiteJIT processa as classes seguindo esta estrutura:
 
 | Classe Exemplo | Propriedade CSS | Resultado |
 | :--- | :--- | :--- |
 | `text-16` | `font-size` | `16px` |
 | `text-[#f00]` | `color` | `#f00` |
-| `border-2` | `border-width` | `2px` + `solid` |
-| `border-[blue]` | `border-color` | `blue` + `solid` |
+| `text-20[#333]` | `font-size` + `color` | `20px` e `#333` |
+| `border-l-3[blue]` | `border-left` (shorthand) | `3px solid blue` |
 | `p-10` | `padding` | `30px` (Base 3) |
-| `rounded-5` | `border-radius` | `5px` |
+| `hover:bg-black` | `background-color` | Muda no `:hover` |
+
+
 
 ---
 
-## 🛠️ Instalação e Uso
+## 💎 Super-Classes em Detalhe
 
-1. **Clone o repositório:**
-   ```bash
-   git clone [https://github.com/ErineldoTeixeira/litejit-css.git](https://github.com/ErineldoTeixeira/litejit-css.git)
-   cd litejit-css
-## 🛠️ Instalação e Uso
+### Texto Combinado (Tamanho + Cor)
+Use o formato `text-[tamanho][ [cor] ]`:
+* `text-20[#ff0000]` → `font-size: 20px; color: #ff0000;`
+* `text-1.5rem[blue]` → `font-size: 1.5rem; color: blue;`
 
-1. **Clone o repositório:**
-   ```bash
-   git clone [https://github.com/ErineldoTeixeira/litejit-css.git](https://github.com/ErineldoTeixeira/litejit-css.git)
-   cd litejit-css
+### Bordas Combinadas (Direção + Espessura + Cor)
+Use o formato `border-[direção]-[espessura][ [cor] ]`:
+* `border-l-3[#eee]` → `border-left: 3px solid #eee;`
+* `border-t-1[red]` → `border-top: 1px solid red;`
+
+---
+
+## 📁 Estrutura do Projeto
+
+```text
+├── config.js    # Paleta de cores, baseSpacing e mapas de propriedades.
+├── utils.js     # Helpers de escape, mapeamento de direções e resolução de props.
+├── parse.js     # O "cérebro" que transforma classes em regras CSS.
+├── index.js     # O Watcher que monitora os arquivos e gera o style.css.
