@@ -4,14 +4,13 @@ module.exports = {
     // Classes que não precisam de cálculo
     estaticos: {
         'flex': 'display: flex',
-        'grid': 'display: grid;',
         'block': 'display: block;',
         'hidden': 'display: none;',
         'items-center': 'align-items: center;',
         'justify-center': 'justify-content: center;',
-        'flex-col': 'flex-direction: column;',
-        'relative': 'position: relative;',
-        'absolute': 'position: absolute;',
+        'flex-col': 'flex-direction: column',
+        'relative': 'position: relative',
+        'absolute': 'position: absolute',
         'pointer': 'cursor: pointer;',
         'full': 'width: 100%; height: 100%;',
         'w-screen': 'width: 100vw;',
@@ -20,6 +19,7 @@ module.exports = {
 
     // Mapeamento para a lógica dinâmica
     mapaPropriedades: {
+        'font': 'font-family',
         'p': 'padding',
         'pt': 'padding-top',
         'pr': 'padding-right',
@@ -34,9 +34,9 @@ module.exports = {
         'text': 'color',
         'border': 'border-width',
         'border-l': 'border-left-width',
-         'border-r': 'border-right-width',
-          'border-t': 'border-top-width',
-           'border-b': 'border-bottom-width'
+        'border-r': 'border-right-width',
+        'border-t': 'border-top-width',
+        'border-b': 'border-bottom-width'
         // Adicione outros conforme necessário
     },
 

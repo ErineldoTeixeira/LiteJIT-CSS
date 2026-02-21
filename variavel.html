@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiteJIT | Engine Docs</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg[#f1f5f9] font[sans-serif] m-0">
+
+    <nav class="flex justify-between items-center p[15px_40px] bg-black text-white relative">
+        <div class="text-20-bold">⚡ LiteJIT <span class="text-12 text[#888]">v1.4.0</span></div>
+        <div class="flex gap-20">
+            <a href="#intro" class="text-white hover:text-red pointer">Início</a>
+            <a href="#regras" class="text-white hover:text-red pointer">Regras</a>
+            <button class="bg-red text-white p[5px_15px] border-none rounded[4px] pointer hover:bg[#b91c1c]">GitHub</button>
+        </div>
+    </nav>
+
+    <div class="flex">
+        <aside class="w[280px] h-screen bg-white border-r[1px_solid_#ddd] p-20 flex-col">
+            <div class="text-12-bold text[#999] mb-10">FUNDAMENTOS</div>
+            <a href="#" class="block p-5 text-black hover:text-red pointer">Instalação</a>
+            <a href="#" class="block p-5 text-black hover:text-red pointer">Multiplicador</a>
+            
+            <div class="text-12-bold text[#999] mt-20 mb-10">COMPONENTES</div>
+            <a href="#" class="block p-5 text-black hover:text-red pointer">Botões</a>
+            <a href="#" class="block p-5 text-black hover:text-red pointer">Cards</a>
+            <a href="#" class="block p-5 text-black hover:text-red pointer">Grid</a>
+        </aside>
+
+        <main class="full p-40">
+            <div class="max-w[900px]">
+                <h1 class="text-40-bold text-black mb-5">Documentação Oficial</h1>
+                <p class="text-18 text[#64748b] mb-30">Entenda como o seu motor JIT processa estilos utilitários.</p>
+
+                <section class="bg-white p-30 rounded[12px] border[1px_solid_#e2e8f0] mb-30">
+                    <h2 class="text-24-bold mb-10 text-black border-b[2px_solid_red] pb-5">O Multiplicador</h2>
+                    <p class="mb-15">Seu <code class="text-red">baseSpacing</code> está em <strong>3</strong>. Isso significa que:</p>
+                    
+                    
+                    
+                    <div class="bg[#f8fafc] p-15 rounded[8px] border-l[4px_solid_black]">
+                        <code class="text-14">p-10</code> vira <code class="text-red">padding: 30px;</code><br>
+                        <code class="text-14">mt-5</code> vira <code class="text-red">margin-top: 15px;</code>
+                    </div>
+                </section>
+
+                <div class="flex gap-20">
+                    <div class="bg-white p-20 rounded[8px] border[1px_solid_#ddd] full">
+                        <h3 class="text-18-bold mb-10">Valores Fixos</h3>
+                        <p class="text-14 mb-10">Use colchetes para medidas exatas que não seguem o multiplicador.</p>
+                        <div class="w[100%] bg[#eee] p-10 text-center rounded[4px]">w[100%]</div>
+                    </div>
+
+                    <div class="bg-white p-20 rounded[8px] border[1px_solid_#ddd] full">
+                        <h3 class="text-18-bold mb-10">Underline (Espaços)</h3>
+                        <p class="text-14 mb-10">O sistema troca <code class="text-red">_</code> por espaços no CSS final.</p>
+                        <div class="border[2px_dashed_red] p-10 text-12">border[2px_dashed_red]</div>
+                    </div>
+                </div>
+
+                <footer class="mt-40 p-20 bg-black text-white text-center rounded[10px]">
+                    Dica: Rode <code class="text-red">node src/litejit.js build</code> para atualizar esta página.
+                </footer>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

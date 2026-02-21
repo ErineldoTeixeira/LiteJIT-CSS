@@ -1,41 +1,80 @@
 /* LiteJIT v1.0 | Restaurado */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-.bg-black { background-color: #000000 !important; }
-.h-screen { height: 100vh; !important; }
+.bg\[\#f1f5f9\] { background-color: #f1f5f9 !important; }
+.font\[sans-serif\] { font-family: sans-serif, sans-serif !important; }
+.m-0 { margin: 0px !important; }
 .flex { display: flex !important; }
 .items-center { align-items: center; !important; }
-.justify-center { justify-content: center; !important; }
-.m-0 { margin: 0px !important; }
+.p\[15px_40px\] { padding: 15px 40px !important; }
+.bg-black { background-color: #000000 !important; }
+.text-white { color: #ffffff !important; }
+.relative { position: relative !important; }
+.text-20-bold { font-size: 20px !important; }
+.text-12 { font-size: 12px !important; }
+.text\[\#888\] { color: #888 !important; }
+.hover\:text-red:hover { color: #f00 !important; }
+.pointer { cursor: pointer; !important; }
+.bg-red { background-color: #f00 !important; }
+.p\[5px_15px\] { padding: 5px 15px !important; }
+.hover\:bg\[\#b91c1c\]:hover { background-color: #b91c1c !important; }
+.h-screen { height: 100vh; !important; }
 .bg-white { background-color: #ffffff !important; }
+.p-20 { padding: 60px !important; }
+.flex-col { flex-direction: column !important; }
+.text-12-bold { font-size: 12px !important; }
+.text\[\#999\] { color: #999 !important; }
+.mb-10 { margin-bottom: 30px !important; }
+.block { display: block; !important; }
+.p-5 { padding: 15px !important; }
+.text-black { color: #000000 !important; }
+.mt-20 { margin-top: 60px !important; }
+.full { width: 100%; height: 100%; !important; }
+.p-40 { padding: 120px !important; }
+.text-40-bold { font-size: 40px !important; }
+.mb-5 { margin-bottom: 15px !important; }
+.text-18 { font-size: 18px !important; }
+.text\[\#64748b\] { color: #64748b !important; }
+.mb-30 { margin-bottom: 90px !important; }
+.p-30 { padding: 90px !important; }
+.border\[1px_solid_\#e2e8f0\] { border: 1px solid #e2e8f0 !important; }
+.text-24-bold { font-size: 24px !important; }
+.pb-5 { padding-bottom: 15px !important; }
+.mb-15 { margin-bottom: 45px !important; }
+.text-red { color: #f00 !important; }
+.bg\[\#f8fafc\] { background-color: #f8fafc !important; }
+.p-15 { padding: 45px !important; }
+.text-14 { font-size: 14px !important; }
+.border\[1px_solid_\#ddd\] { border: 1px solid #ddd !important; }
+.text-18-bold { font-size: 18px !important; }
+.bg\[\#eee\] { background-color: #eee !important; }
 .p-10 { padding: 30px !important; }
-.flex-col { flex-direction: column; !important; }
+.border\[2px_dashed_red\] { border: 2px dashed red !important; }
+.mt-40 { margin-top: 120px !important; }
+.justify-center { justify-content: center; !important; }
+.border\[5px\] { border: 5px solid !important; }
 .border-red { border: 1px solid #f00 !important; }
 .border-b-\[10px\] { border-bottom: 10px solid !important; }
 .border-b-black { border-bottom: 1px solid #000000 !important; }
-.relative { position: relative; !important; }
-.text-black { color: #000000 !important; }
 .text-\[42px\] { font-size: 42px !important; }
-.text-red { color: #f00 !important; }
 .text-20 { font-size: 20px !important; }
 .mt-2 { margin-top: 6px !important; }
-.grid { display: grid; !important; }
 .mt-5 { margin-top: 15px !important; }
 .pl-\[30px\] { padding-left: 30px !important; }
 .border-l-red { border-left: 1px solid #f00 !important; }
 .text-\[14px\] { font-size: 14px !important; }
 .text-\[\#00ff00\] { color: #00ff00 !important; }
 .mt-10 { margin-top: 30px !important; }
-.p-5 { padding: 15px !important; }
-.text-white { color: #ffffff !important; }
-.pointer { cursor: pointer; !important; }
+.border\[0\] { border: 0 solid !important; }
 .hover\:bg-red:hover { background-color: #f00 !important; }
 .hover\:text-black:hover { color: #000000 !important; }
-.absolute { position: absolute; !important; }
+.absolute { position: absolute !important; }
 .pt-\[2px\] { padding-top: 2px !important; }
 .pb-\[2px\] { padding-bottom: 2px !important; }
 .pl-5 { padding-left: 15px !important; }
 .pr-5 { padding-right: 15px !important; }
-.bg-red { background-color: #f00 !important; }
 .text-\[12px\] { font-size: 12px !important; }
 .mt-\[300px\] { margin-top: 300px !important; }
 .bg-\[\#333\] { background-color: #333 !important; }
+.p-3 { padding: 9px !important; }
+.text\[\#fff\] { color: #fff !important; }
+.bg\[\#000\] { background-color: #000 !important; }

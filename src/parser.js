@@ -7,18 +7,18 @@ function parseClasse(classeOriginal) {
     let classeParaProcessar = classeOriginal.trim();
     let sufixoCss = "";
 
-    // 1. Hover
+    // 1. Estados (Hover)
     if (classeParaProcessar.startsWith('hover:')) {
         classeParaProcessar = classeParaProcessar.replace('hover:', '');
         sufixoCss = ":hover";
     }
 
-    // 2. Estáticos (flex, block, etc) - PRIORIDADE 1
+    // 2. Estáticos
     if (config.estaticos && config.estaticos[classeParaProcessar]) {
         return `.${utils.escapeSeletor(classeOriginal)}${sufixoCss} { ${config.estaticos[classeParaProcessar]} !important; }`;
     }
 
-    // 3. Extração de Prefixo (bg, text, p, m, border)
+    // 3. Extração de Prefixo e Valor
     let partes = classeParaProcessar.split('-');
     let prefixo = "", valorRaw = "";
 
@@ -31,28 +31,61 @@ function parseClasse(classeOriginal) {
         }
     }
 
+    if (!prefixo && classeParaProcessar.includes('[')) {
+        const i = classeParaProcessar.indexOf('[');
+        const possivelPrefixo = classeParaProcessar.slice(0, i);
+        if (config.mapaPropriedades[possivelPrefixo]) {
+            prefixo = possivelPrefixo;
+            valorRaw = classeParaProcessar.slice(i);
+        }
+    }
+
     if (!prefixo) return null;
 
-    // 4. Lógica de Colchetes [valor]
+    // 4. Lógica de Colchetes
     let valorPrincipal = valorRaw;
     let valorExtra = null;
     let ehUnidadeCustomizada = false;
+    let ehVariavelCss = false;
 
-    if (valorRaw.includes('[') && valorRaw.endsWith(']')) {
+   if (valorRaw.includes('[') && valorRaw.endsWith(']')) {
         const i = valorRaw.indexOf('[');
-        valorPrincipal = valorRaw.slice(0, i) || null; 
+        valorPrincipal = valorRaw.slice(0, i).replace('-', '') || null; 
         valorExtra = valorRaw.slice(i + 1, -1); 
 
-        // Se o colchete não tem valor antes (ex: p-[10%]) ou é p[10%]
-        // Identificamos se é unidade (números + unidade CSS)
-        if (!valorPrincipal && /^[0-9.]+(px|rem|em|%|vh|vw|pt|vh|calc)?/.test(valorExtra)) {
+        // TRUQUE DE ESTABILIDADE: Converte underline em espaço para o CSS final
+        // Ex: p[10px_20px] vira padding: 10px 20px
+        if (valorExtra) valorExtra = valorExtra.replace(/_/g, ' ');
+
+        if (valorExtra && valorExtra.startsWith('--')) {
+            ehVariavelCss = true;
+        }
+
+
+        // Regex atualizado para aceitar espaços (\s)
+        if (!valorPrincipal && /^[0-9.pxrem%vhvwptcalc\s!(),]+/.test(valorExtra)) {
             ehUnidadeCustomizada = true;
         }
     }
 
     const seletor = utils.escapeSeletor(classeOriginal);
 
-    // 5. Identificação de VALOR (Unidade Customizada)
+    // 5. PROCESSAMENTO DE REGRAS
+    if (ehVariavelCss) {
+        let propFinal = config.mapaPropriedades[prefixo] || prefixo;
+        if (prefixo === 'text') propFinal = 'color';
+        if (prefixo === 'bg') propFinal = 'background-color';
+        if (prefixo === 'font') propFinal = 'font-family';
+        return `.${seletor}${sufixoCss} { ${propFinal}: var(${valorExtra}) !important; }`;
+    }
+
+    if (prefixo === 'font' && valorExtra) {
+        const fonteFormatada = valorExtra.includes(' ') && !valorExtra.includes("'") 
+            ? `'${valorExtra}'` 
+            : valorExtra;
+        return `.${seletor}${sufixoCss} { font-family: ${fonteFormatada}, sans-serif !important; }`;
+    }
+
     if (ehUnidadeCustomizada) {
         let propFinal = config.mapaPropriedades[prefixo] || prefixo;
         let estiloAdicional = "";
@@ -62,63 +95,48 @@ function parseClasse(classeOriginal) {
         } else if (prefixo.startsWith('border')) {
             const direcao = utils.getDirecaoCompleta(prefixo);
             propFinal = (direcao && direcao !== prefixo) ? `border-${direcao}` : 'border';
-            estiloAdicional = " solid"; // Garante que a borda apareça
+            if (!valorExtra.includes(' ')) estiloAdicional = " solid";
         }
         
         return `.${seletor}${sufixoCss} { ${propFinal}: ${valorExtra}${estiloAdicional} !important; }`;
     }
 
-    // Identificação de COR (Variável ou Hex)
+    // Cores e Hexadecimais
     const possivelNomeCor = valorExtra || valorPrincipal;
     const corFinal = config.cores[possivelNomeCor] || (possivelNomeCor && possivelNomeCor.startsWith('#') ? possivelNomeCor : null);
 
     if (corFinal) {
-        let propEfetiva;
-        if (prefixo === 'bg') propEfetiva = 'background-color';
-        else if (prefixo === 'text') propEfetiva = 'color';
-        else if (prefixo.startsWith('border')) {
-            const direcao = utils.getDirecaoCompleta(prefixo);
-            propEfetiva = (direcao && direcao !== prefixo) ? `border-${direcao}-color` : 'border-color';
-        } else {
-            propEfetiva = config.mapaPropriedades[prefixo] || prefixo;
-        }
-
+        let propEfetiva = utils.resolverPropriedade(prefixo, true);
         const estiloBorda = utils.processarEstiloBorda(prefixo);
 
-        // Caso A: Texto com tamanho e cor: text-20[primary]
         if (prefixo === 'text' && valorExtra && valorPrincipal) {
             return `.${seletor}${sufixoCss} { font-size: ${valorPrincipal}px !important; color: ${corFinal} !important; }`;
         }
 
-        // Caso B: Borda com largura e cor: border-l-2[primary]
         if (prefixo.startsWith('border') && valorExtra && valorPrincipal) {
             const direcao = utils.getDirecaoCompleta(prefixo);
             const propBase = (direcao && direcao !== prefixo) ? `border-${direcao}` : 'border';
             return `.${seletor}${sufixoCss} { ${propBase}: ${valorPrincipal}px solid ${corFinal} !important; }`;
         }
 
-        // Caso C: Borda simples com cor: border-primary ou border-l-primary
         if (prefixo.startsWith('border')) {
             const direcao = utils.getDirecaoCompleta(prefixo);
             const propBase = (direcao && direcao !== prefixo) ? `border-${direcao}` : 'border';
             return `.${seletor}${sufixoCss} { ${propBase}: 1px solid ${corFinal} !important; }`;
         }
 
-        // Caso D: Cor simples: bg-primary, text-white
         return `.${seletor}${sufixoCss} { ${propEfetiva}: ${corFinal} !important; ${estiloBorda} }`.replace(/\s+/g, ' ').trim();
     }
 
-    // 6. Identificação de NÚMEROS (p-20, m-10, text-30, border-10)
+    // Números Puros
     const num = parseInt(valorPrincipal);
     if (!isNaN(num)) {
-        let propFinal = config.mapaPropriedades[prefixo] || prefixo;
+        let propFinal = utils.resolverPropriedade(prefixo, false);
         let valorFinalCss;
 
         if (prefixo === 'text') {
-            propFinal = 'font-size';
             valorFinalCss = `${num}px`;
         } else if (prefixo.startsWith('border')) {
-            // CORREÇÃO: Para border-10 ou border-t-2
             const direcao = utils.getDirecaoCompleta(prefixo);
             propFinal = (direcao && direcao !== prefixo) ? `border-${direcao}` : 'border';
             return `.${seletor}${sufixoCss} { ${propFinal}: ${num}px solid !important; }`;
